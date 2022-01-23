@@ -1,6 +1,7 @@
 import pandas as pd
 import string
-
+from IPython.display import display
+from IPython.display import HTML
 #Data that needs to be cleaned
 data = 'Airline Code;DelayTimes;FlightCodes;To_From\nAir Canada (!);[21, 40];20015.0;WAterLoo_NEWYork\n<Air France> (12);[];;Montreal_TORONTO\n(Porter Airways. );[60, 22, 87];20035.0;CALgary_Ottawa\n12. Air France;[78, 66];;Ottawa_VANcouvER\n""".\\.Lufthansa.\\.""";[12, 33];20055.0;london_MONTreal\n'
 
@@ -17,10 +18,10 @@ splitsAgain.pop()
 #Perform data cleaning
 for i in range(len(splitsAgain)):
     
-    #First entry is headers and don't need to be cleaned
+    #First entry is headers and don't need to be cleaned except for last column
     if i != 0:
-        #Remove all punctionation, numbers and extra spaces from Airline Codes
-        splitsAgain[i][0] = splitsAgain[i][0].translate(str.maketrans('', '', string.punctuation)).strip()
+        #Remove all punctuation, numbers and extra spaces from Airline Codes
+        splitsAgain[i][0] = splitsAgain[i][0].translate(str.maketrans('', '', string.punctuation))
         splitsAgain[i][0] = splitsAgain[i][0].translate(str.maketrans('', '', string.digits)).strip()
         
         #If Flight Code doesn't exist, add it
@@ -53,11 +54,6 @@ for index in range(len(headers)):
 
 #create data frame
 table = pd.DataFrame(dataDict, index=indexes)
-
 print(table)
 
 
-
-print(dataDict)
-#test.translate(str.maketrans('', '', string.punctuation))
-#print(splitsAgain)
